@@ -8,7 +8,7 @@ const NavigateComponent: FC<INavigateProps> = ({ navigates, children }) => {
     <nav className="nav">
       <ul className="nav-list">
         {navigates.map((navigate) => (
-          <li className="navigate-item">
+          <li className="navigate-item" key={navigate.title}>
             <NavLink to={navigate.to} className="navigate-link">
               <p className="navigate-title">{navigate.title}</p>
               {navigate.icon && (
