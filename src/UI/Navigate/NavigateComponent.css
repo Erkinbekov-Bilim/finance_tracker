@@ -1,0 +1,55 @@
+.navigate-item {
+  cursor: pointer;
+  background: var(--color-bg-button-500);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border-800);
+  transition: all 0.3s ease;
+}
+
+.navigate-item:active {
+  scale: 0.9;
+}
+
+.navigate-item:hover {
+  background: var(--color-bg-button-800);
+  border: 1px solid var(--color-border);
+}
+
+.navigate-item:hover > .navigate-link {
+  color: var(--color-text-900);
+}
+
+.navigate-item:hover > .navigate-link > .navigate-icon {
+  color: var(--color-text-900);
+}
+
+.navigate-link {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 20px;
+  color: var(--color-text-800);
+  font-family: var(--font-main);
+  letter-spacing: var(--space-sm);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.navigate-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-lg);
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
