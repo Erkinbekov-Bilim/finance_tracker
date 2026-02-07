@@ -1,0 +1,33 @@
+@import './tokens/colors.css';
+@import './tokens/radii.css';
+@import './tokens/spacing.css';
+@import './tokens/typography.css';
+@import './sizes.css';
+
+body {
+  font-family: var(--font-main);
+  font-optical-sizing: auto;
+  background: var(--color-bg-body);
+}
+
+.fixed-position-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  width: var(--container-width);
+  margin: 0 auto;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
