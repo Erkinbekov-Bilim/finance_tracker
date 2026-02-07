@@ -1,0 +1,14 @@
+.header {
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navigate-button {
+  border: none;
+}
