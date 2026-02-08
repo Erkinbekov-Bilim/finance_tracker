@@ -1,0 +1,12 @@
+.main-layout {
+  height: var(--container-height);
+  background: var(--color-bg-tag-main);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.main {
+  margin-top: 2%;
+  padding: var(--space-lg);
+}
