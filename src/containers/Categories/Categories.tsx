@@ -18,7 +18,7 @@ import Loader from '../../UI/Loader/Loader';
 const Categories = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectFinanceCategories);
-  const { sendLoading } = useAppSelector(selectLoading);
+  const { fetchLoading } = useAppSelector(selectLoading);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
 
@@ -32,7 +32,7 @@ const Categories = () => {
     </div>
   );
 
-  if (!sendLoading && categories.length > 0) {
+  if (!fetchLoading && categories.length > 0) {
     render = (
       <>
         {categories.map((category) => (
@@ -40,7 +40,7 @@ const Categories = () => {
         ))}
       </>
     );
-  } else if (categories.length == 0 && !selectLoading) {
+  } else if (categories.length == 0 && !fetchLoading) {
     render = (
       <p className="not-found-message fixed-position-center">
         Add categories to see them here
