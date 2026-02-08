@@ -1,0 +1,55 @@
+.category-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  padding: var(--space-md);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-bg-card-white);
+}
+
+.category-content {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+}
+
+.category-actions {
+  display: flex;
+  flex-direction: row;
+}
+
+.category-action {
+  width: 50px;
+  height: 50px;
+  border: none;
+  font-size: var(--text-xl);
+}
+
+.category-action-delete {
+  color: var(--color-incorrect);
+}
+
+.category-type {
+  width: 150px;
+  text-align: center;
+  background: var(--color-bg-card-900);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-md);
+}
+
+.category-type-income {
+  color: var(--color-correct);
+}
+
+.category-type-expense {
+  color: var(--color-incorrect);
+}
+
+.category-name {
+  font-size: var(--text-lg);
+  color: var(--color-text-900);
+  margin-left: 50px;
+}
