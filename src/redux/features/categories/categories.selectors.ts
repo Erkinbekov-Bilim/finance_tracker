@@ -11,3 +11,6 @@ export const selectFinanceCategories = (state: RootState) =>
 
 export const selectFinanceCategory = (state: RootState) =>
   state.categoriesReducer.category;
+
+export const selectLoading = (state: RootState) =>
+  state.categoriesReducer.loading;
