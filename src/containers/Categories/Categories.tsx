@@ -2,7 +2,7 @@ import Button from '../../UI/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './Categories.css';
-import { useEffect, useState, type ReactElement } from 'react';
+import { useEffect, useState } from 'react';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import Modal from '../../UI/Modal/Modal';
 import AddNewCategory from './AddNewCategory/AddNewCategory';
@@ -14,11 +14,13 @@ import {
 import { getFinanceCategories } from '../../redux/features/categories/categories.api';
 import CategoriesCard from './CategoriesCard/CategoriesCard';
 import Loader from '../../UI/Loader/Loader';
+import { selectError } from '../../redux/features/transactions/transactions.selectors';
 
 const Categories = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectFinanceCategories);
-  const { fetchLoading } = useAppSelector(selectLoading);
+  const { fetchAllLoading } = useAppSelector(selectLoading);
+  const isError = useAppSelector(selectError);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
 
@@ -26,27 +28,33 @@ const Categories = () => {
     dispatch(getFinanceCategories());
   }, [dispatch]);
 
-  let render: ReactElement = (
-    <div className='fixed-position-center'>
-      <Loader />
-    </div>
-  );
+  const renderContent = () => {
+    if (fetchAllLoading) {
+      return (
+        <div className="fixed-position-center">
+          <Loader />
+        </div>
+      );
+    }
 
-  if (!fetchLoading && categories.length > 0) {
-    render = (
+    if (!fetchAllLoading && categories.length === 0) {
+      <p className="not-found-message fixed-position-center">
+        Add categories to see them here
+      </p>;
+    }
+
+    if (isError) {
+      <p className="error fixed-position-center">Unknown Error</p>;
+    }
+
+    return (
       <>
         {categories.map((category) => (
           <CategoriesCard key={category.id} category={category} />
         ))}
       </>
     );
-  } else if (categories.length == 0 && !fetchLoading) {
-    render = (
-      <p className="not-found-message fixed-position-center">
-        Add categories to see them here
-      </p>
-    );
-  }
+  };
 
   return (
     <>
@@ -60,14 +68,14 @@ const Categories = () => {
 
         <div className="categories-content">
           <p className="categories-title">Category</p>
-          <div className="categories-block">{render}</div>
+          <div className="categories-block">{renderContent()}</div>
         </div>
       </section>
       {isOpenModal && (
         <>
           <Backdrop onClose={toggleModal} />
           <Modal onClose={toggleModal}>
-            <AddNewCategory toggleModal={toggleModal}/>
+            <AddNewCategory toggleModal={toggleModal} />
           </Modal>
         </>
       )}
