@@ -1,0 +1,6 @@
+.container {
+  width: var(--container-width);
+  margin: 0 auto;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
