@@ -20,7 +20,7 @@ interface ICategoriesCardProps {
 const CategoriesCard: FC<ICategoriesCardProps> = ({ category }) => {
   const dispatch = useAppDispatch();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const toggleModal = () => setIsOpenModal((prev) => !prev);
+  const toggleModal = () => setIsOpenModal(!isOpenModal);
 
   const deleteCategory = async (id: string) => {
     const isConfirmed = confirm(
@@ -58,7 +58,7 @@ const CategoriesCard: FC<ICategoriesCardProps> = ({ category }) => {
             </Button>
             <Button
               className="category-action category-action-edit"
-              onClick={() => setIsOpenModal(true)}
+              onClick={toggleModal}
             >
               <FontAwesomeIcon icon={faPen} />
             </Button>
