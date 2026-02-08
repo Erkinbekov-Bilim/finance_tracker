@@ -3,7 +3,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../redux/hooks/reduxHooks';
-import CategoryForm from '../../../components/CategoryForm/CategoryForm';
+import CategoryForm from '../../../components/forms/finance/CategoryForm/CategoryForm';
 import {
   getFinanceCategory,
   putFinanceCategory,

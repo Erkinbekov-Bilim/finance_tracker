@@ -1,6 +1,6 @@
 import { postFinanceCategory } from '../../../redux/features/categories/categories.api';
 import type { ICategoriesMutation } from '../../../types/finance/categories/categories-mutation';
-import CategoryForm from '../../../components/CategoryForm/CategoryForm';
+import CategoryForm from '../../../components/forms/finance/CategoryForm/CategoryForm';
 import {
   useAppDispatch,
   useAppSelector,
