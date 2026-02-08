@@ -1,7 +1,9 @@
 import { useEffect, type FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/reduxHooks';
 import { selectFinanceTypes } from '../../redux/features/categories/categories.selectors';
-import { getFinanceType } from '../../redux/features/categories/categories.api';
+import {
+  getFinanceType,
+} from '../../redux/features/categories/categories.api';
 import type { ICategoriesMutation } from '../../types/finance/categories/categories-mutation';
 import { useForm } from 'react-hook-form';
 import './CategoryForm.css';
@@ -13,7 +15,6 @@ interface ICategoryFormProps {
   defaultValueCategory?: ICategoriesMutation;
   isEdit?: boolean;
   isLoading?: boolean;
-  targetModal?: () => void;
 }
 
 const CategoryForm: FC<ICategoryFormProps> = ({
@@ -21,7 +22,6 @@ const CategoryForm: FC<ICategoryFormProps> = ({
   defaultValueCategory,
   isEdit,
   isLoading,
-  targetModal,
 }) => {
   const dispatch = useAppDispatch();
   const financeTypes = useAppSelector(selectFinanceTypes);
@@ -47,7 +47,6 @@ const CategoryForm: FC<ICategoryFormProps> = ({
 
   const onSubmit = (data: ICategoriesMutation) => {
     onSubmitCategory(data);
-    targetModal && targetModal();
     reset();
   };
 
@@ -55,7 +54,7 @@ const CategoryForm: FC<ICategoryFormProps> = ({
     if (defaultValueCategory) {
       reset(defaultValueCategory);
     }
-  }, [defaultValues, reset]);
+  }, [defaultValueCategory, reset]);
 
   return (
     <>
