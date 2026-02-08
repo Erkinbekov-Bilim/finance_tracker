@@ -17,6 +17,7 @@ interface ICategoriesState {
   isError: boolean;
   loading: {
     fetchLoading: boolean;
+    fetchAllLoading: boolean;
     sendLoading: boolean;
     deleteLoading: boolean;
   };
@@ -29,6 +30,7 @@ const initialState: ICategoriesState = {
   isError: false,
   loading: {
     fetchLoading: false,
+    fetchAllLoading: false,
     sendLoading: false,
     deleteLoading: false,
   },
@@ -40,19 +42,19 @@ const categoriesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getFinanceCategories.pending, (state) => {
-      state.loading.fetchLoading = true;
+      state.loading.fetchAllLoading = true;
       state.isError = false;
     });
     builder.addCase(
       getFinanceCategories.fulfilled,
       (state, { payload: categories }) => {
-        state.loading.fetchLoading = false;
+        state.loading.fetchAllLoading = false;
         state.isError = false;
         state.categories = categories;
       },
     );
     builder.addCase(getFinanceCategories.rejected, (state) => {
-      state.loading.fetchLoading = false;
+      state.loading.fetchAllLoading = false;
       state.isError = true;
     });
 
