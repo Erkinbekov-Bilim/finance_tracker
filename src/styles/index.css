@@ -17,13 +17,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.container {
-  width: var(--container-width);
-  margin: 0 auto;
-  padding-left: var(--space-sm);
-  padding-right: var(--space-sm);
-}
-
 a {
   text-decoration: none;
 }
