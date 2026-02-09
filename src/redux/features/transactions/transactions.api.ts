@@ -89,3 +89,12 @@ export const putTransaction = createAsyncThunk<
   });
   thunkApi.dispatch(getTransactions());
 });
+
+export const deleteTransaction = createAsyncThunk<
+  void,
+  { id: string },
+  { dispatch: AppDispatch }
+>('finance/deleteTransaction', async (state, thunkApi) => {
+  await axiosApi.delete(`/transactions/${state.id}.json`);
+  thunkApi.dispatch(getTransactions());
+});
