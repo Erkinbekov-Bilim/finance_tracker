@@ -67,10 +67,23 @@ const TransactionForm: FC<ITransactionFormProps> = ({
   };
 
   useEffect(() => {
-    if (defaultValueTransaction) {
-      reset(defaultValueTransaction);
+    if (
+      defaultValueTransaction &&
+      defaultValueTransaction.amount &&
+      defaultValueTransaction.financeType
+    ) {
+      dispatch(
+        getTransactionCategory({
+          financeType: defaultValueTransaction.financeType,
+        }),
+      );
+
+      reset({
+        ...defaultValueTransaction,
+        amount: Math.abs(defaultValueTransaction.amount),
+      });
     }
-  }, [defaultValueTransaction, reset]);
+  }, [defaultValueTransaction, reset, dispatch]);
 
   return (
     <>
@@ -115,7 +128,7 @@ const TransactionForm: FC<ITransactionFormProps> = ({
             </div>
 
             <div className="form-input-block">
-              <label htmlFor="category">Type</label>
+              <label htmlFor="category">Category</label>
               <select
                 {...register('category', {
                   required: 'category is required',
