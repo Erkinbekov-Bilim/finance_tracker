@@ -6,6 +6,7 @@ import type { ITransactionMutation } from '../../../types/finance/transactions/t
 import type { ITransactionData } from '../../../types/finance/transactions/transaction-data';
 import type { ITransaction } from '../../../types/finance/transactions/transaction';
 import type { ITransactionApi } from '../../../types/finance/transactions/transaction-api';
+import type { AppDispatch } from '../../app/store';
 
 export const getTransactionCategory = createAsyncThunk<
   ITransactionCategory[],
@@ -69,9 +70,22 @@ export const getTransaction = createAsyncThunk<
   { id: string }
 >('finance/getTransaction', async (state) => {
   const response = await axiosApi.get<ITransactionData>(
-    `/transaction/${state.id}.json`,
+    `/transactions/${state.id}.json`,
   );
   const data = response.data;
 
   return data;
+});
+
+export const putTransaction = createAsyncThunk<
+  void,
+  { id: string; transaction: ITransactionMutation; createdAt: string },
+  { dispatch: AppDispatch }
+>('finance/putTransaction', async (state, thunkApi) => {
+  await axiosApi.put<ITransactionData>(`/transactions/${state.id}.json`, {
+    category: state.transaction.category,
+    amount: state.transaction.amount,
+    createdAt: state.createdAt,
+  });
+  thunkApi.dispatch(getTransactions());
 });
