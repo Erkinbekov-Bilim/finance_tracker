@@ -14,6 +14,7 @@ import TransactionCard from './TransactionCard/TransactionCard';
 import { getFinanceCategories } from '../../redux/features/categories/categories.api';
 import './Transactions.css';
 import type { ITransaction } from '../../types/finance/transactions/transaction';
+import { Outlet } from 'react-router-dom';
 
 const Transactions = () => {
   const dispatch = useAppDispatch();
@@ -72,6 +73,7 @@ const Transactions = () => {
 
   return (
     <>
+      <Outlet />
       <section className="transactions">
         <div className="transactions-content">
           <p className="transactions-title">Transactions</p>
