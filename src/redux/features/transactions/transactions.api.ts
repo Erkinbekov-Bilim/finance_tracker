@@ -1,15 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { ITransactionMutation } from '../../../types/finance/transactions/transactiion-mutation';
 import axiosApi from '../../../api/axiosApi';
 import type { ITransactionCategory } from '../../../types/finance/transactions/transaction-category';
 import type { ICategoriesApi } from '../../../types/finance/categories/categories-api';
-
-export const postTransaction = createAsyncThunk<void, ITransactionMutation>(
-  'finance/postTransaction',
-  async (transaction) => {
-    await axiosApi.post('/transactions.json', transaction);
-  },
-);
+import type { ITransactionMutation } from '../../../types/finance/transactions/transactiion-mutation';
+import type { ITransactionData } from '../../../types/finance/transactions/transaction-data';
 
 export const getTransactionCategory = createAsyncThunk<
   ITransactionCategory[],
@@ -29,10 +23,19 @@ export const getTransactionCategory = createAsyncThunk<
         id,
       };
     });
-    console.log(categories);
-
     return categories;
   }
 
   return [];
 });
+
+export const postTransaction = createAsyncThunk<void, ITransactionMutation>(
+  'finance/postTransaction',
+  async (transaction) => {
+    await axiosApi.post<ITransactionData>('/transactions.json', {
+      category: transaction.category,
+      amount: transaction.amount,
+      createdAt: new Date().toISOString(),
+    });
+  },
+);
