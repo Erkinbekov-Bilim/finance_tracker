@@ -21,7 +21,6 @@ export const getFinanceCategories = createAsyncThunk<ICategories[]>(
           id: categoryKey,
         };
       });
-
       return categories;
     }
 
@@ -50,10 +49,17 @@ export const postFinanceCategory = createAsyncThunk<
 
 export const deleteFinanceCategory = createAsyncThunk<
   void,
-  { id: string },
+  { idCategory: string; transactionIDS: (string | null)[] },
   { dispatch: AppDispatch }
 >('finance/deleteFinanceCategory', async (state, thunkApi) => {
-  await axiosApi.delete(`/categories/${state.id}.json`);
+  await axiosApi.delete(`/categories/${state.idCategory}.json`);
+
+  await Promise.all(
+    state.transactionIDS.map((id) =>
+      axiosApi.delete(`/transactions/${id}.json`),
+    ),
+  );
+
   thunkApi.dispatch(getFinanceCategories());
 });
 
