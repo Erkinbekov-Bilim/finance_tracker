@@ -8,3 +8,6 @@ export const selectError = (state: RootState) =>
 
 export const selectTransactionCategory = (state: RootState) =>
   state.transactionReducer.transactionCategory;
+
+export const selectTransactions = (state: RootState) =>
+  state.transactionReducer.transactions;
