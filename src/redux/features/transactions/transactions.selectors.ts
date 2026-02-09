@@ -12,3 +12,5 @@ export const selectTransactionCategory = (state: RootState) =>
 export const selectTransactions = (state: RootState) =>
   state.transactionReducer.transactions;
 
+export const selectTransaction = (state: RootState) =>
+  state.transactionReducer.transaction;
