@@ -1,5 +1,6 @@
 export interface ITransactionMutation {
-  financeType: string;
-  category: string;
   amount: number | null;
+  category: string;
+  financeType: string;
 }
+
