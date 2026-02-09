@@ -1,13 +1,14 @@
 import type { RootState } from '../../app/store';
 
 export const selectLoading = (state: RootState) =>
-  state.categoriesReducer.loading;
+  state.transactionReducer.loading;
 
 export const selectError = (state: RootState) =>
-  state.categoriesReducer.isError;
+  state.transactionReducer.isError;
 
 export const selectTransactionCategory = (state: RootState) =>
   state.transactionReducer.transactionCategory;
 
 export const selectTransactions = (state: RootState) =>
   state.transactionReducer.transactions;
+
