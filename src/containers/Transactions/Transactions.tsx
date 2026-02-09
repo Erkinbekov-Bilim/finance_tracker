@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   selectFinanceCategories,
   selectLoading,
@@ -28,6 +28,13 @@ const Transactions = () => {
     dispatch(getTransactions());
   }, [dispatch]);
 
+  const sortedTransactions = useMemo(() => {
+    return [...transactions].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+  }, [transactions]);
+  
   const renderContent = () => {
     if (fetchAllLoading) {
       return (
@@ -51,7 +58,7 @@ const Transactions = () => {
 
     return (
       <>
-        {transactions.map((transaction) => (
+        {sortedTransactions.map((transaction) => (
           <TransactionCard
             key={transaction.id}
             transaction={transaction}
