@@ -8,7 +8,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../redux/hooks/reduxHooks';
-import './EditTransaction.css';
 import { useParams } from 'react-router-dom';
 import {
   getTransaction,
