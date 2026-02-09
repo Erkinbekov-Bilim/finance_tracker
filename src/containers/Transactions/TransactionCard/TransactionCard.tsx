@@ -3,6 +3,10 @@ import type { ITransaction } from '../../../types/finance/transactions/transacti
 import './TransactionCard.css';
 import dayjs from 'dayjs';
 import type { ICategories } from '../../../types/finance/categories/categories';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Button from '../../../UI/Button/Button';
 
 interface ITransactionCardProps {
   categories: ICategories[];
@@ -37,7 +41,15 @@ const TransactionCard: FC<ITransactionCardProps> = ({
       <p>{formatTime}</p>
       <p>{category && category.name}</p>
       <div className="transaction-actions">
-        
+        <Link
+          to={`/transactions/${transaction.id}/edit`}
+          className="transaction-action transaction-edit"
+        >
+          <FontAwesomeIcon icon={faPen} />
+        </Link>
+        <Button type="button" className="transaction-action transaction-delete">
+          <FontAwesomeIcon icon={faTrash} />
+        </Button>
       </div>
     </div>
   );
