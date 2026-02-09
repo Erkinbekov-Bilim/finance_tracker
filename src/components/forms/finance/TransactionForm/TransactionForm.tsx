@@ -10,9 +10,10 @@ import { selectFinanceTypes } from '../../../../redux/features/categories/catego
 import { getFinanceType } from '../../../../redux/features/categories/categories.api';
 import { getTransactionCategory } from '../../../../redux/features/transactions/transactions.api';
 import { selectTransactionCategory } from '../../../../redux/features/transactions/transactions.selectors';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../../../../UI/Loader/Loader';
 import './TransactionForm.css';
+import Button from '../../../../UI/Button/Button';
 
 interface ITransactionFormProps {
   onSubmitTransaction: (transaction: ITransactionMutation) => void;
@@ -27,6 +28,7 @@ const TransactionForm: FC<ITransactionFormProps> = ({
   isEdit,
   isLoading,
 }) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const financeTypes = useAppSelector(selectFinanceTypes);
   const transactionCategory = useAppSelector(selectTransactionCategory);
@@ -61,6 +63,7 @@ const TransactionForm: FC<ITransactionFormProps> = ({
       });
     }
     reset();
+    navigate('/');
   };
 
   useEffect(() => {
@@ -174,24 +177,29 @@ const TransactionForm: FC<ITransactionFormProps> = ({
                 <p className="input-error-message">{errors.amount.message}</p>
               )}
             </div>
-            <Link to={'/'} className="form-submit-btn transaction-button" type="submit">
-              {isLoading ? (
-                <div className="loader-button">
-                  <Loader />
-                </div>
-              ) : (
-                'save'
-              )}
-            </Link>
-            <Link to={'/'} className="form-submit-btn transaction-button" type="reset">
-              {isLoading ? (
-                <div className="loader-button">
-                  <Loader />
-                </div>
-              ) : (
-                'cancel'
-              )}
-            </Link>
+            <div className="form-block-actions">
+              <Button
+                className="form-submit-btn transaction-button"
+                type="submit"
+              >
+                {isLoading ? (
+                  <div className="loader-button">
+                    <Loader />
+                  </div>
+                ) : (
+                  'save'
+                )}
+              </Button>
+              <Link to={'/'} className="form-submit-btn transaction-button">
+                {isLoading ? (
+                  <div className="loader-button">
+                    <Loader />
+                  </div>
+                ) : (
+                  'cancel'
+                )}
+              </Link>
+            </div>
           </div>
         </form>
       </div>

@@ -29,6 +29,11 @@
 }
 
 .transaction-button {
-  width: 90%;
+  display: block;
+  max-width: 200px;
+  width: 200px;
+  margin: 0 auto;
   text-align: center;
+  font-size: var(--text-md);
+  padding: var(--space-md) 0;
 }
