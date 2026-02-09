@@ -1,4 +1,4 @@
-import type { PropsWithChildren, ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 export interface INavigate {
   title: string;
@@ -6,6 +6,6 @@ export interface INavigate {
   icon?: string | ReactElement;
 }
 
-export interface INavigateProps extends PropsWithChildren{
+export interface INavigateProps {
   navigates: INavigate[];
 }

@@ -3,7 +3,7 @@ import type { INavigateProps } from './navigate.types';
 import { NavLink } from 'react-router-dom';
 import './NavigateComponent.css';
 
-const NavigateComponent: FC<INavigateProps> = ({ navigates, children }) => {
+const NavigateComponent: FC<INavigateProps> = ({ navigates }) => {
   return (
     <nav className="nav">
       <ul className="nav-list">
@@ -17,7 +17,6 @@ const NavigateComponent: FC<INavigateProps> = ({ navigates, children }) => {
             </NavLink>
           </li>
         ))}
-        {children && <li className="navigate-item">{children}</li>}
       </ul>
     </nav>
   );
