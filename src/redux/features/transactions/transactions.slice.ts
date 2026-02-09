@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { ITransaction } from '../../../types/finance/transactions/transaction';
 import {
+  deleteTransaction,
   getTransaction,
   getTransactionCategory,
   getTransactions,
@@ -113,6 +114,19 @@ const transactionSlice = createSlice({
     });
     builder.addCase(putTransaction.rejected, (state) => {
       state.loading.sendLoading = false;
+      state.isError = true;
+    });
+
+    builder.addCase(deleteTransaction.pending, (state) => {
+      state.loading.deleteLoading = true;
+      state.isError = false;
+    });
+    builder.addCase(deleteTransaction.fulfilled, (state) => {
+      state.loading.deleteLoading = false;
+      state.isError = false;
+    });
+    builder.addCase(deleteTransaction.rejected, (state) => {
+      state.loading.deleteLoading = false;
       state.isError = true;
     });
   },
