@@ -12,23 +12,40 @@ import {
 import EditCategory from '../EditCategory/EditCategory';
 import Backdrop from '../../../UI/Backdrop/Backdrop';
 import Modal from '../../../UI/Modal/Modal';
+import type { ITransaction } from '../../../types/finance/transactions/transaction';
 
 interface ICategoriesCardProps {
   category: ICategories;
+  transactions: ITransaction[];
 }
 
-const CategoriesCard: FC<ICategoriesCardProps> = ({ category }) => {
+const CategoriesCard: FC<ICategoriesCardProps> = ({
+  category,
+  transactions,
+}) => {
   const dispatch = useAppDispatch();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const toggleModal = () => setIsOpenModal(!isOpenModal);
 
-  const deleteCategory = async (id: string) => {
+  const transactionIDS: (string | null)[] = transactions.map((transaction) => {
+    if (transaction.category === category.id) {
+      return transaction.id;
+    }
+
+    return null;
+  });
+
+  const deleteCategory = async (idCategory: string) => {
     const isConfirmed = confirm(
       'Are you sure you want to delete this category?',
     );
 
     if (isConfirmed) {
-      await dispatch(deleteFinanceCategory({ id })).unwrap();
+      if (idCategory) {
+        await dispatch(
+          deleteFinanceCategory({ idCategory, transactionIDS }),
+        ).unwrap();
+      }
       await dispatch(getFinanceCategories());
     }
   };
