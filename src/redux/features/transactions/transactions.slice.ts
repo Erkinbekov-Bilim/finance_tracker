@@ -5,6 +5,7 @@ import {
   getTransactionCategory,
   getTransactions,
   postTransaction,
+  putTransaction,
 } from './transactions.api';
 import type { ITransactionCategory } from '../../../types/finance/transactions/transaction-category';
 import type { ITransactionData } from '../../../types/finance/transactions/transaction-data';
@@ -99,6 +100,19 @@ const transactionSlice = createSlice({
     );
     builder.addCase(getTransaction.rejected, (state) => {
       state.loading.fetchLoading = false;
+      state.isError = true;
+    });
+
+    builder.addCase(putTransaction.pending, (state) => {
+      state.loading.sendLoading = true;
+      state.isError = false;
+    });
+    builder.addCase(putTransaction.fulfilled, (state) => {
+      state.loading.sendLoading = false;
+      state.isError = false;
+    });
+    builder.addCase(putTransaction.rejected, (state) => {
+      state.loading.sendLoading = false;
       state.isError = true;
     });
   },
