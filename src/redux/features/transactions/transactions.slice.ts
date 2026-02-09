@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { ITransaction } from '../../../types/finance/transactions/transaction';
-import { getTransactionCategory, postTransaction } from './transactions.api';
+import {
+  getTransactionCategory,
+  getTransactions,
+  postTransaction,
+} from './transactions.api';
 import type { ITransactionCategory } from '../../../types/finance/transactions/transaction-category';
 
 interface ITransactionsState {
@@ -47,16 +51,35 @@ const transactionSlice = createSlice({
       state.loading.fetchAllLoading = true;
       state.isError = false;
     });
-    builder.addCase(getTransactionCategory.fulfilled, (state, {payload: transactionCategory}) => {
-      state.loading.fetchAllLoading = false;
-      state.isError = false;
-      state.transactionCategory = transactionCategory;
-    })
+    builder.addCase(
+      getTransactionCategory.fulfilled,
+      (state, { payload: transactionCategory }) => {
+        state.loading.fetchAllLoading = false;
+        state.isError = false;
+        state.transactionCategory = transactionCategory;
+      },
+    );
     builder.addCase(getTransactionCategory.rejected, (state) => {
       state.loading.fetchAllLoading = false;
       state.isError = true;
-    })
+    });
 
+    builder.addCase(getTransactions.pending, (state) => {
+      state.loading.fetchAllLoading = true;
+      state.isError = false;
+    });
+    builder.addCase(
+      getTransactions.fulfilled,
+      (state, { payload: transactions }) => {
+        state.loading.fetchAllLoading = false;
+        state.isError = false;
+        state.transactions = transactions;
+      },
+    );
+    builder.addCase(getTransactions.rejected, (state) => {
+      state.loading.fetchAllLoading = false;
+      state.isError = true;
+    });
   },
 });
 
