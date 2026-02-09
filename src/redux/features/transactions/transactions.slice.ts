@@ -1,14 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { ITransaction } from '../../../types/finance/transactions/transaction';
 import {
+  getTransaction,
   getTransactionCategory,
   getTransactions,
   postTransaction,
 } from './transactions.api';
 import type { ITransactionCategory } from '../../../types/finance/transactions/transaction-category';
+import type { ITransactionData } from '../../../types/finance/transactions/transaction-data';
 
 interface ITransactionsState {
   transactions: ITransaction[];
+  transaction: ITransactionData | null;
   transactionCategory: ITransactionCategory[];
   isError: boolean;
   loading: {
@@ -21,6 +24,7 @@ interface ITransactionsState {
 
 const initialState: ITransactionsState = {
   transactions: [],
+  transaction: null,
   transactionCategory: [],
   isError: false,
   loading: {
@@ -78,6 +82,23 @@ const transactionSlice = createSlice({
     );
     builder.addCase(getTransactions.rejected, (state) => {
       state.loading.fetchAllLoading = false;
+      state.isError = true;
+    });
+
+    builder.addCase(getTransaction.pending, (state) => {
+      state.loading.fetchLoading = true;
+      state.isError = false;
+    });
+    builder.addCase(
+      getTransaction.fulfilled,
+      (state, { payload: transaction }) => {
+        state.loading.fetchLoading = false;
+        state.isError = false;
+        state.transaction = transaction;
+      },
+    );
+    builder.addCase(getTransaction.rejected, (state) => {
+      state.loading.fetchLoading = false;
       state.isError = true;
     });
   },
