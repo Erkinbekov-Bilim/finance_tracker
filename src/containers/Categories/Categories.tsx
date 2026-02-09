@@ -14,17 +14,23 @@ import {
 import { getFinanceCategories } from '../../redux/features/categories/categories.api';
 import CategoriesCard from './CategoriesCard/CategoriesCard';
 import Loader from '../../UI/Loader/Loader';
-import { selectError } from '../../redux/features/transactions/transactions.selectors';
+import {
+  selectError,
+  selectTransactions,
+} from '../../redux/features/transactions/transactions.selectors';
+import { getTransactions } from '../../redux/features/transactions/transactions.api';
 
 const Categories = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectFinanceCategories);
+  const transactions = useAppSelector(selectTransactions);
   const { fetchAllLoading } = useAppSelector(selectLoading);
   const isError = useAppSelector(selectError);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const toggleModal = () => setIsOpenModal((prev) => !prev);
 
   useEffect(() => {
+    dispatch(getTransactions());
     dispatch(getFinanceCategories());
   }, [dispatch]);
 
@@ -50,7 +56,11 @@ const Categories = () => {
     return (
       <>
         {categories.map((category) => (
-          <CategoriesCard key={category.id} category={category} />
+          <CategoriesCard
+            key={category.id}
+            category={category}
+            transactions={transactions}
+          />
         ))}
       </>
     );
