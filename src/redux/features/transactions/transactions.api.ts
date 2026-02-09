@@ -63,3 +63,15 @@ export const postTransaction = createAsyncThunk<void, ITransactionMutation>(
     });
   },
 );
+
+export const getTransaction = createAsyncThunk<
+  ITransactionData,
+  { id: string }
+>('finance/getTransaction', async (state) => {
+  const response = await axiosApi.get<ITransactionData>(
+    `/transaction/${state.id}.json`,
+  );
+  const data = response.data;
+
+  return data;
+});
