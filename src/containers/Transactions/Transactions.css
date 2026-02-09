@@ -1,0 +1,33 @@
+.transactions-title {
+  text-align: center;
+  font-size: var(--text-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--space-xs);
+}
+
+.transaction-total {
+  margin-top: 5%;
+  max-width: 750px;
+  min-width: 50px;
+  width: auto;
+  border-radius: var(--border-radius-lg);
+}
+
+.transaction-total-label {
+  display: inline;
+  padding: var(--space-md) var(--space-xxl);
+  border-radius: var(--border-radius-md);
+  background: var(--color-bg-card-900);
+  color: var(--color-bg-card-800);
+  text-transform: uppercase;
+  letter-spacing: var(--space-xs);
+}
+
+.transactions-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  margin-top: 5%;
+  flex-wrap: wrap;
+}
